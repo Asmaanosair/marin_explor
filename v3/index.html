@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="شركة استكشاف البحار  - لتمكين الأبحاث والاستثمار في البيئة البحرية   ">
+    <meta name="keywords" content="استكشاف بحري, درون بحري, شاهين, AUV, أرامكو, نيوم, البحر الأحمر">
+    <title>شركة استكشاف البحار  | لتمكين الأبحاث والاستثمار في البيئة البحرية   </title>
+
+    <!-- Google Fonts - Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="shaheen-logo.jpg">
+</head>
+<body class="home-page">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader-container">
+            <div class="ocean-loader">
+                <div class="wave-loader">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="loader-icon">
+                    <img src="shaheen-logo.jpg" alt="شاهين Logo">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Wave Transition Overlay -->
+    <div class="wave-transition-overlay" id="waveTransition">
+        <svg class="wave-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#001d3d" fill-opacity="0.9" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+        <svg class="wave-svg wave-2" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#003566" fill-opacity="0.7" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,192C672,181,768,139,864,133.3C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+        <svg class="wave-svg wave-3" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#0077b6" fill-opacity="0.5" d="M0,160L48,170.7C96,181,192,203,288,208C384,213,480,203,576,186.7C672,171,768,149,864,154.7C960,160,1056,192,1152,197.3C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+
+    <!-- Fullpage Video Background -->
+    <div class="fullpage-video-bg" id="fullpageVideo">
+        <video autoplay muted loop playsinline>
+            <!-- الفيديو المحلي -->
+            <source src="26818-361092071_small.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Diving Overlay Effects -->
+    <div class="diving-overlay">
+        <div class="depth-gradient"></div>
+        <div class="water-caustics"></div>
+        <div class="pressure-vignette" id="pressureVignette"></div>
+    </div>
+
+    <!-- Kelp/Seaweed -->
+    <div class="kelp"></div>
+    <div class="kelp"></div>
+    <div class="kelp"></div>
+    <div class="kelp"></div>
+    <div class="kelp"></div>
+    <div class="kelp"></div>
+
+    <!-- Plankton Particles -->
+    <div id="planktonContainer" style="position: fixed; width: 100%; height: 100%; pointer-events: none; z-index: 2;"></div>
+
+    <!-- Diving Bubbles -->
+    <div id="divingBubblesContainer" style="position: fixed; width: 100%; height: 100%; pointer-events: none; z-index: 4;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="shaheen-logo.jpg" alt="شاهين - Shaheen Logo">
+                </div>
+                <div class="logo-text">
+                    <h1>شركة استكشاف البحار </h1>
+                    <p>Marine Explore </p>
+                </div>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">الرئيسية</a></li>
+                <li><a href="pages/about.html">عن الشركة</a></li>
+<!--                <li><a href="pages/founders.html">المؤسسين</a></li>-->
+                <li><a href="#contact">تواصل معنا</a></li>
+                <li class="language-switcher">
+                    <a href="#" id="languageToggle">
+                        <i class="fas fa-globe"></i>
+                        <span>English</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mobile-menu-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero underwater-effect">
+        <!-- Video Background -->
+        <div class="video-background">
+            <!-- الفيديو المحلي -->
+            <video autoplay muted loop playsinline>
+                <source src="26818-361092071_small.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay-pattern"></div>
+            <!-- Enhanced Depth Overlay -->
+            <div class="video-depth-overlay"></div>
+        </div>
+
+        <!-- Ocean Light Rays -->
+        <div class="ocean-ray"></div>
+        <div class="ocean-ray"></div>
+        <div class="ocean-ray"></div>
+        <div class="ocean-ray"></div>
+        <div class="ocean-ray"></div>
+
+        <!-- Depth Particles -->
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+        <div class="depth-particle"></div>
+
+        <!-- Underwater Bubbles -->
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+
+        <div class="container" style="position: relative; z-index: 10;">
+            <div class="hero-content">
+                <h1 class="animate-fade-in-down text-animated-gradient" style="color: white; -webkit-text-fill-color: white;">شركة استكشاف البحار </h1>
+                <p class="subtitle animate-fade-in-up delay-2 text-shadow-glow">لتمكين الأبحاث والاستثمار في البيئة البحرية   </p>
+<!--                <p class="subtitle animate-fade-in-up delay-2 text-shadow-glow">رواد التقنية البحرية في المملكة</p>-->
+                <p class="animate-fade-in-up delay-3">حلول ذكية ومتطورة للاستكشاف البحري باستخدام تقنية <span class="highlight-shaheen">الدرون شاهين</span></p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Company - Design 4 -->
+    <section class="about-marine-v4">
+        <!-- Ocean Wave Background -->
+        <div class="marine-wave-bg">
+           
+        </div>
+
+        <div class="container">
+            <!-- Enhanced Header -->
+            <div class="marine-header" data-aos="zoom-in">
+                <div class="marine-compass">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <span class="marine-label">
+                    <i class="fas fa-anchor"></i>
+                    استكشاف البحار
+                </span>
+                <h2 class="marine-title">من نحن</h2>
+                <div class="marine-divider">
+                    <div class="wave-line"></div>
+                    <i class="fas fa-ship"></i>
+                    <div class="wave-line"></div>
+                </div>
+                <p class="marine-subtitle">
+                    <i class="fas fa-water"></i>
+                    التنوع البيئي كنز ينتظر الاكتشاف
+                    <i class="fas fa-water"></i>
+                </p>
+            </div>
+
+            <!-- Marine Content Grid -->
+            <div class="marine-content-grid">
+                <!-- Section 1: Introduction -->
+                <div class="marine-card" data-aos="fade-up">
+                    <div class="marine-card-header">
+                        <div class="marine-icon">
+                            <i class="fas fa-gem"></i>
+                            <div class="icon-ripple"></div>
+                        </div>
+                        <h3>ثروات المملكة البحرية</h3>
+                    </div>
+                    <div class="marine-card-body">
+                        <p>تمتلك سواحل المملكة العربية السعودية إمكانات هائلة من الثروات المعدنية والموارد الطبيعية القيمة، والتي يمكن أن تساهم بشكل كبير في تعزيز قطاع التعدين في المملكة وتحقيق التنمية المستدامة. ويتطلب استغلال هذه الإمكانات إجراء دراسات جيولوجية شاملة ومنهجية، وتطوير تقنيات استخراج ومعالجة مبتكرة، واتخاذ إجراءات صارمة لحماية البيئة، وتشجيع الاستثمار الأجنبي والشراكات بين القطاعين العام والخاص.</p>
+                    </div>
+                    <div class="marine-card-wave">
+                        <i class="fas fa-water"></i>
+                    </div>
+                </div>
+
+                <!-- Section 2: Mineral Resources -->
+                <div class="marine-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="marine-card-header">
+                        <div class="marine-icon">
+                            <i class="fas fa-layer-group"></i>
+                            <div class="icon-ripple"></div>
+                        </div>
+                        <h3>الموارد المعدنية</h3>
+                    </div>
+                    <div class="marine-card-body">
+                        <p>من أبرز هذه الإمكانات: الرواسب المعدنية الثقيلة على طول الشواطئ وفي المناطق القريبة منها، وتحتوي على معادن مثل الإلمنيت والروتيل والزركون والمغنتيت، والتي تستخدم في صناعات متنوعة مثل صناعة الطلاء والسيراميك والإلكترونيات، ورواسب الفوسفات والتي تعتبر مصدرًا هامًا لإنتاج الأسمدة الفوسفاتية التي تستخدم في الزراعة.</p>
+                    </div>
+                    <div class="marine-card-wave">
+                        <i class="fas fa-water"></i>
+                    </div>
+                </div>
+
+                <!-- Section 3: Coastal Resources -->
+                <div class="marine-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="marine-card-header">
+                        <div class="marine-icon">
+                            <i class="fas fa-umbrella-beach"></i>
+                            <div class="icon-ripple"></div>
+                        </div>
+                        <h3>موارد السواحل</h3>
+                    </div>
+                    <div class="marine-card-body">
+                        <p>كما تنتشر المسطحات الملحية على طول السواحل، وتعتبر مصدرًا غنيًا بالأملاح مثل ملح الطعام وكلوريد البوتاسيوم وكبريتات المغنيسيوم، والتي تستخدم في العديد من الصناعات الكيميائية والغذائية. ويتواجد الجبس في بعض التكوينات الجيولوجية الساحلية، ويستخدم في صناعة الأسمنت والبناء. ويعتبر الحجر الجيري من الصخور الرسوبية الشائعة على طول السواحل، ويستخدم في صناعة الأسمنت والجير ومواد البناء، كما تتواجد الرمال بكميات كبيرة، وتستخدم في صناعة الزجاج والبناء.</p>
+                    </div>
+                    <div class="marine-card-wave">
+                        <i class="fas fa-water"></i>
+                    </div>
+                </div>
+
+                <!-- Section 4: Marine Resources -->
+                <div class="marine-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="marine-card-header">
+                        <div class="marine-icon">
+                            <i class="fas fa-ship"></i>
+                            <div class="icon-ripple"></div>
+                        </div>
+                        <h3>الموارد البحرية</h3>
+                    </div>
+                    <div class="marine-card-body">
+                        <p>بالإضافة إلى المعادن الموجودة على اليابسة، تحتوي المياه الإقليمية للمملكة على موارد طبيعية قيمة مثل النفط والغاز الطبيعي، بالإضافة إلى إمكانية استخراج المعادن من قاع البحر.</p>
+                    </div>
+                    <div class="marine-card-wave">
+                        <i class="fas fa-water"></i>
+                    </div>
+                </div>
+
+                <!-- Section 5: Oil Fields -->
+                <div class="marine-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="marine-card-header">
+                        <div class="marine-icon">
+                            <i class="fas fa-oil-can"></i>
+                            <div class="icon-ripple"></div>
+                        </div>
+                        <h3>حقول النفط البحرية</h3>
+                    </div>
+                    <div class="marine-card-body">
+                        <p>كما تلعب حقول النفط البحرية دورًا حيويًا في إنتاج النفط السعودي، حيث تساهم بكميات كبيرة في إجمالي الإنتاج اليومي. تشمل هذه الحقول حقولًا عملاقة مثل <strong>حقل المرجان</strong> و<strong>حقل السفانية</strong>، وهما من بين أكبر الحقول البحرية في العالم. يتم استخراج النفط من هذه الحقول باستخدام تقنيات متطورة، ويتم نقله عبر خطوط الأنابيب إلى مصافي التكرير ومحطات التصدير.</p>
+                    </div>
+                    <div class="marine-card-wave">
+                        <i class="fas fa-water"></i>
+                    </div>
+                </div>
+
+                <!-- Section 6: Natural Gas -->
+                <div class="marine-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="marine-card-header">
+                        <div class="marine-icon">
+                            <i class="fas fa-fire"></i>
+                            <div class="icon-ripple"></div>
+                        </div>
+                        <h3>الغاز الطبيعي</h3>
+                    </div>
+                    <div class="marine-card-body">
+                        <p>بالإضافة إلى النفط، تحتوي المياه الإقليمية للمملكة على كميات كبيرة من الغاز الطبيعي، والذي يعتبر مصدرًا هامًا للطاقة النظيفة. يتم استخدام الغاز الطبيعي في توليد الكهرباء وتشغيل المصانع وتحلية المياه، كما يتم تصديره إلى الخارج لتلبية الطلب العالمي المتزايد على الغاز.</p>
+                    </div>
+                    <div class="marine-card-wave">
+                        <i class="fas fa-water"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision, Mission, Values - Marine Style -->
+            <div class="marine-vmv-section" data-aos="fade-up">
+                <div class="vmv-lighthouse">
+                    <i class="fas fa-lighthouse"></i>
+                </div>
+                
+                <div class="marine-vmv-grid">
+                    <!-- Vision -->
+                    <div class="marine-vmv-card vision-marine">
+                        <div class="vmv-anchor">
+                            <i class="fas fa-anchor"></i>
+                        </div>
+                        <div class="vmv-icon-marine">
+                            <i class="fas fa-binoculars"></i>
+                            <div class="wave-ripple"></div>
+                        </div>
+                        <h3>الرؤية</h3>
+                        <div class="vmv-divider-marine">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <p>أن نكون شركة رائدة عالمياً في توفير حلول التصوير والتنقيب تحت الماء بتقنيات متقدمة ومتطورة والمساهمة الفعالة في استكشاف وحماية الحياة البحرية.</p>
+                        <div class="vmv-waves">
+                            <i class="fas fa-water"></i>
+                            <i class="fas fa-water"></i>
+                            <i class="fas fa-water"></i>
+                        </div>
+                    </div>
+
+                    <!-- Mission -->
+                    <div class="marine-vmv-card mission-marine">
+                        <div class="vmv-anchor">
+                            <i class="fas fa-anchor"></i>
+                        </div>
+                        <div class="vmv-icon-marine">
+                            <i class="fas fa-compass"></i>
+                            <div class="wave-ripple"></div>
+                        </div>
+                        <h3>الرسالة</h3>
+                        <div class="vmv-divider-marine">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <p>تمكين الاستكشاف للحياة البحرية بتقديم أدوات وتقنيات مبتكرة.</p>
+                        <div class="vmv-waves">
+                            <i class="fas fa-water"></i>
+                            <i class="fas fa-water"></i>
+                            <i class="fas fa-water"></i>
+                        </div>
+                    </div>
+
+                    <!-- Values -->
+                    <div class="marine-vmv-card values-marine">
+                        <div class="vmv-anchor">
+                            <i class="fas fa-anchor"></i>
+                        </div>
+                        <div class="vmv-icon-marine">
+                            <i class="fas fa-anchor"></i>
+                            <div class="wave-ripple"></div>
+                        </div>
+                        <h3>القيم</h3>
+                        <div class="vmv-divider-marine">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <div class="values-marine-list">
+                            <div class="value-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>الابتكار</span>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-medal"></i>
+                                <span>الجودة</span>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-leaf"></i>
+                                <span>الاستدامة</span>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-hands-helping"></i>
+                                <span>المسؤولية</span>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>الشراكة</span>
+                            </div>
+                        </div>
+                        <div class="vmv-waves">
+                            <i class="fas fa-water"></i>
+                            <i class="fas fa-water"></i>
+                            <i class="fas fa-water"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Marine Elements -->
+            <div class="floating-marine-elements">
+                <i class="fas fa-fish float-fish-1"></i>
+                <i class="fas fa-fish float-fish-2"></i>
+                <i class="fas fa-ship float-ship"></i>
+                <i class="fas fa-anchor float-anchor"></i>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Shaheen Drone Section -->
+    <section class="shaheen-section">
+
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle" style="color: #90e0ef;">تقنيتنا المتطورة</span>
+                <h2 class="ocean-title" style="color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);">درون شاهين البحري</h2>
+                <div class="title-waves">
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                </div>
+                <p style="color: rgba(255,255,255,0.95); max-width: 800px; margin: 2rem auto 3rem;">تقنية متطورة بتكلفة منافسة - الحل الأمثل للاستكشاف البحري</p>
+            </div>
+
+            <div class="shaheen-content-grid">
+                <!-- Shaheen Visual Card -->
+                <div class="shaheen-visual-card reveal-scale">
+                    <div class="shaheen-card-bg"></div>
+                    <div class="shaheen-card-overlay"></div>
+                    <div class="shaheen-card-content">
+                        <h3>شاهين</h3>
+                        <div class="shaheen-icon-wrapper">
+                            <div class="shaheen-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="pulse-ring"></div>
+                            <div class="pulse-ring delay-1"></div>
+                        </div>
+                        <p>نظام متطور للاستكشاف البحري</p>
+                        <div class="shaheen-badge">AUV Technology</div>
+                    </div>
+                </div>
+
+                <!-- Shaheen Specs Card -->
+                <div class="shaheen-specs-card reveal-scale">
+                    <h3 class="specs-title">
+                        <i class="fas fa-cog"></i>
+                        المواصفات التقنية
+                    </h3>
+                    <div class="specs-list">
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="spec-info">
+                                <span class="spec-label">التكلفة</span>
+                                <span class="spec-value">$3,000</span>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="fas fa-arrows-alt-v"></i>
+                            </div>
+                            <div class="spec-info">
+                                <span class="spec-label">العمق الأقصى</span>
+                                <span class="spec-value">300 متر</span>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="spec-info">
+                                <span class="spec-label">العمر التشغيلي</span>
+                                <span class="spec-value">24+ ساعة</span>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="spec-info">
+                                <span class="spec-label">براءات الاختراع</span>
+                                <span class="spec-value">5 براءات</span>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="spec-info">
+                                <span class="spec-label">نظام الملاحة</span>
+                                <span class="spec-value">متقدم + AI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Business Models -->
+    <section class="business-models-section">
+
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle" style="color: #90e0ef;">خيارات التشغيل</span>
+                <h2 class="ocean-title" style="color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);">خيارات مرنة</h2>
+                <div class="title-waves">
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                </div>
+                <p style="color: rgba(255,255,255,0.95); max-width: 800px; margin: 2rem auto 3rem;">خيارات مرنة للبدء والتشغيل</p>
+            </div>
+
+            <div class="business-models-grid">
+                <!-- Rental Model -->
+                <div class="professional-card business-card reveal-scale" data-theme="rental">
+                    <div class="card-background"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3>الاستئجار</h3>
+                        <p class="business-description">حل مرن واقتصادي لمشاريعك المؤقتة</p>
+                        <ul class="business-features">
+                            <li><i class="fas fa-check"></i> مرونة في الاستخدام</li>
+                            <li><i class="fas fa-check"></i> توفير في التكاليف الأولية</li>
+                            <li><i class="fas fa-check"></i> دعم فني كامل</li>
+                            <li><i class="fas fa-check"></i> صيانة شاملة</li>
+                            <li><i class="fas fa-check"></i> تدريب مجاني</li>
+                        </ul>
+                        <a href="pages/contact.html" class="business-btn">
+                            اطلب عرض سعر <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Purchase Model -->
+                <div class="professional-card business-card reveal-scale" data-theme="purchase">
+                    <div class="card-background"></div>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>الشراء</h3>
+                        <p class="business-description">استثمار طويل الأمد وملكية كاملة</p>
+                        <ul class="business-features">
+                            <li><i class="fas fa-check"></i> ملكية كاملة للنظام</li>
+                            <li><i class="fas fa-check"></i> استقلالية تامة</li>
+                            <li><i class="fas fa-check"></i> إمكانية التخصيص</li>
+                            <li><i class="fas fa-check"></i> قطع غيار مضمونة</li>
+                            <li><i class="fas fa-check"></i> ضمان شامل</li>
+                        </ul>
+                        <a href="pages/contact.html" class="business-btn">
+                            اطلب عرض سعر <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Target Clients -->
+    <section class="clients-section">
+
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle" style="color: #90e0ef;">شركاء النجاح</span>
+                <h2 class="ocean-title" style="color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);">عملاؤنا المستهدفون</h2>
+                <div class="title-waves">
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                </div>
+                <p style="color: rgba(255,255,255,0.95); max-width: 800px; margin: 2rem auto 3rem;">نفخر بخدمة أبرز المشاريع والجهات في المملكة</p>
+            </div>
+
+            <div class="clients-grid-modern">
+                <div class="client-card reveal-scale">
+                    <div class="client-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <h4>أرامكو السعودية</h4>
+                    <p>قطاع النفط والغاز</p>
+                </div>
+                <div class="client-card reveal-scale">
+                    <div class="client-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <h4>أمالا</h4>
+                    <p>السياحة الفاخرة</p>
+                </div>
+                <div class="client-card reveal-scale">
+                    <div class="client-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h4>مشروع البحر الأحمر</h4>
+                    <p>التطوير السياحي</p>
+                </div>
+                <div class="client-card reveal-scale">
+                    <div class="client-icon">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                    <h4>سفينة سلطان</h4>
+                    <p>النقل البحري</p>
+                </div>
+                <div class="client-card reveal-scale">
+                    <div class="client-icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h4>نيوم</h4>
+                    <p>المدينة المستقبلية</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us-section">
+
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle" style="color: #90e0ef;">ما يميزنا</span>
+                <h2 class="ocean-title" style="color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);">لماذا نحن؟</h2>
+                <div class="title-waves">
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                </div>
+                <p style="color: rgba(255,255,255,0.95); max-width: 800px; margin: 2rem auto 3rem;">ما يجعلنا الخيار الأمثل للاستكشاف البحري</p>
+            </div>
+
+            <div class="why-us-grid">
+                <div class="why-us-card reveal-scale">
+                    <div class="why-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>زيادة فرص الاستثمار</h4>
+                    <p>المساهمة في زيادة فرص الاستثمار في البحث والتطوير للحياة البحرية</p>
+                </div>
+
+                <div class="why-us-card reveal-scale">
+                    <div class="why-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h4>تقارير احترافية</h4>
+                    <p>تقديم التقارير الاحترافية لعمليات البحث والتنقيب</p>
+                </div>
+
+                <div class="why-us-card reveal-scale">
+                    <div class="why-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h4>الشراكات الفعّالة</h4>
+                    <p>تعزيز الشراكات الفّعالة في مجالات البيئة البحرية</p>
+                </div>
+
+                <div class="why-us-card reveal-scale">
+                    <div class="why-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>صديق للبيئة</h4>
+                    <p>تقنية نظيفة ومستدامة تحافظ على البيئة البحرية</p>
+                </div>
+
+                <div class="why-us-card reveal-scale">
+                    <div class="why-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>سرعة والتزام بالجودة</h4>
+                    <p>سرعة التنفيذ مع الالتزام بالجودة العالية</p>
+                </div>
+
+                <div class="why-us-card reveal-scale">
+                    <div class="why-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h4>أسعار منافسة</h4>
+                    <p>تقديم أسعار منافسة تناسب جميع احتياجاتكم</p>
+                </div>
+
+                <div class="why-us-card reveal-scale">
+                    <div class="why-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h4>الالتزام بالاستدامة</h4>
+                    <p>الالتزام بالاستدامة بممارسات تقلل التأثير البيئي</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section-modern">
+
+        <div class="cta-background-overlay"></div>
+        <div class="container">
+            <div class="cta-content-modern">
+                <div class="cta-icon-large">
+                    <i class="fas fa-anchor"></i>
+                </div>
+                <h2 class="cta-title">هل أنت مستعد لبدء مشروعك البحري؟</h2>
+                <p class="cta-description">احصل على استشارة مجانية من فريق خبرائنا اليوم واكتشف كيف يمكن لتقنيتنا المتطورة أن تحدث فرقاً في مشروعك</p>
+                <div class="cta-buttons">
+                    <a href="pages/contact.html" class="cta-btn-primary">
+                        <i class="fas fa-phone-alt"></i>
+                        احجز استشارة مجانية
+                    </a>
+                </div>
+                <div class="cta-features-list">
+                    <div class="cta-feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>استشارة مجانية</span>
+                    </div>
+                    <div class="cta-feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>عرض سعر فوري</span>
+                    </div>
+                    <div class="cta-feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>دعم فني 24/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle" style="color: #90e0ef;">تواصل معنا</span>
+                <h2 class="ocean-title" style="color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);">ابدأ رحلتك البحرية معنا</h2>
+                <div class="title-waves">
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                    <div class="wave-line" style="background: linear-gradient(90deg, #90e0ef, #48cae4, #00b4d8);"></div>
+                </div>
+                <p style="color: rgba(255,255,255,0.95); max-width: 800px; margin: 2rem auto 3rem;">نحن هنا للإجابة على استفساراتك ومساعدتك في تحقيق أهدافك البحرية</p>
+            </div>
+
+            <div class="contact-content">
+                <!-- Contact Info Cards -->
+                <div class="contact-info-cards">
+                    <div class="contact-info-card reveal-scale">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h4>الهاتف</h4>
+                        <p>+966 XX XXX XXXX</p>
+                        <a href="tel:+966XXXXXXXXX" class="contact-card-link">اتصل بنا</a>
+                    </div>
+
+                    <div class="contact-info-card reveal-scale">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>البريد الإلكتروني</h4>
+                        <p>info@marine-explore.sa</p>
+                        <a href="mailto:info@marine-explore.sa" class="contact-card-link">راسلنا</a>
+                    </div>
+
+                    <div class="contact-info-card reveal-scale">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>الموقع</h4>
+                        <p>الرياض، المملكة العربية السعودية</p>
+                        <a href="#" class="contact-card-link">عرض الخريطة</a>
+                    </div>
+
+                    <div class="contact-info-card reveal-scale">
+                        <div class="contact-card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>ساعات العمل</h4>
+                        <p>الأحد - الخميس<br>8:00 ص - 5:00 م</p>
+                        <a href="#" class="contact-card-link">دعم 24/7</a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper reveal-scale">
+                    <form class="contact-form-modern" id="contactFormHome">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">الاسم الكامل</label>
+                                <input type="text" id="name" name="name" required placeholder="اسمك الكامل">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">البريد الإلكتروني</label>
+                                <input type="email" id="email" name="email" required placeholder="example@email.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">رقم الهاتف</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="+966 XX XXX XXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">الموضوع</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">اختر الموضوع</option>
+                                    <option value="environmental">الاستئجار</option>
+                                        <option value="environmental">الشراء</option>
+                                    <option value="oil-gas"> استشارة</option>
+                    
+                                    <option value="other"> آخر</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">الرسالة</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="اكتب رسالتك هنا..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="shaheen-logo.jpg" alt="شاهين - Shaheen Logo">
+                    </div>
+                    <h3>شركة استكشاف البحار </h3>
+                    <p>شركة ذات مسؤولية محدودة متخصصة في حلول الاستكشاف البحري المتطورة</p>
+                </div>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-building"></i> عن الشركة</h4>
+                    <ul>
+                        <li><a href="pages/about.html"><i class="fas fa-chevron-left"></i> من نحن</a></li>
+                        <li><a href="pages/team.html"><i class="fas fa-chevron-left"></i> فريق العمل</a></li>
+                        <li><a href="pages/partners.html"><i class="fas fa-chevron-left"></i> الشركاء والداعمون</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4><i class="fas fa-cogs"></i> خدماتنا</h4>
+                    <ul>
+                        <li><a href="pages/environmental.html"><i class="fas fa-chevron-left"></i> الدراسات البيئية</a></li>
+                        <li><a href="pages/oil-gas.html"><i class="fas fa-chevron-left"></i> النفط والغاز</a></li>
+                        <li><a href="pages/security.html"><i class="fas fa-chevron-left"></i> الأمن والدفاع</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4><i class="fas fa-phone-alt"></i> تواصل معنا</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i> الهاتف: +966 XX XXX XXXX</li>
+                        <li><i class="fas fa-envelope"></i> البريد: info@marine-explore.sa</li>
+                        <li><i class="fas fa-map-marker-alt"></i> العنوان: الرياض، المملكة العربية السعودية</li>
+                        <li><i class="fas fa-clock"></i> الدعم الفني: متاح 24/7</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4><i class="fas fa-link"></i> روابط سريعة</h4>
+                    <ul>
+                        <li><a href="pages/contact.html"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الشروط والأحكام</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-wave-decoration"></div>
+                <p>&copy; 2025 شركة استكشاف البحار  - جميع الحقوق محفوظة | Marine Explore LLC</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
