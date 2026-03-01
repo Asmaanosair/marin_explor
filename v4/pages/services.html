@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخدمات | شركة استكشاف البحار</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="../shaheen-logo.jpg">
+
+    <!-- Custom Page Styles -->
+    <style>
+        body { position: relative; margin: 0; padding: 0; }
+
+        .fullpage-video-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden; opacity: 1; visibility: visible;
+        }
+        .fullpage-video-bg video {
+            position: absolute; top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%; width: auto; height: auto;
+            transform: translate(-50%, -50%); object-fit: cover;
+        }
+
+        .diving-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        .depth-gradient {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,119,182,0.1) 30%, rgba(0,119,182,0.3) 60%, rgba(3,4,94,0.5) 100%);
+            opacity: 1;
+        }
+
+        .navbar {
+            background: transparent !important; backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important; box-shadow: none !important;
+            border-bottom: none !important; position: fixed !important;
+            width: 100%; top: 0; z-index: 1000 !important;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+            padding: 1.5rem 0 !important;
+        }
+        .navbar.scrolled {
+            background: rgba(0,0,0,0.3) !important;
+            backdrop-filter: blur(15px) saturate(150%) !important;
+            -webkit-backdrop-filter: blur(15px) saturate(150%) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+            padding: 1rem 0 !important;
+        }
+
+        .page-hero {
+            background: transparent !important; position: relative;
+            overflow: hidden; padding: 8rem 0 4rem;
+        }
+        .page-hero-content { position: relative; z-index: 10; }
+        .page-hero .page-title {
+            color: #fff; font-size: 2.2rem; font-weight: 900;
+            text-shadow: 0 2px 10px rgba(0,29,61,0.8), 0 4px 20px rgba(0,119,182,0.6), 0 0 40px rgba(0,180,216,0.4);
+        }
+        .page-hero .page-subtitle {
+            color: #90e0ef;
+            text-shadow: 0 2px 10px rgba(0,29,61,0.9), 0 4px 15px rgba(0,119,182,0.7);
+            font-size: 1.3rem;
+        }
+        .page-hero .breadcrumb {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); padding: 0.8rem 1.5rem;
+            border-radius: 30px; display: inline-flex; align-items: center;
+            gap: 0.5rem; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.2);
+        }
+        .page-hero .breadcrumb a, .page-hero .breadcrumb span {
+            color: #fff; text-shadow: 0 2px 8px rgba(0,29,61,0.8);
+        }
+        .page-hero-overlay { display: none; }
+
+        .services-section {
+            position: relative; padding: 4rem 0 6rem;
+        }
+        .service-detail-card {
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px); border-radius: 20px;
+            padding: 2.5rem; margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,119,182,0.2), 0 0 0 1px rgba(255,255,255,0.3) inset;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,119,182,0.3);
+        }
+        .service-detail-card .service-icon {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: linear-gradient(135deg, #0077b6, #00b4d8);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .service-detail-card .service-icon i {
+            font-size: 1.8rem; color: white;
+        }
+        .service-detail-card h3 {
+            color: #001d3d; font-size: 1.5rem; margin-bottom: 1rem;
+        }
+        .service-detail-card p {
+            color: #333; line-height: 1.9; font-size: 1.05rem;
+        }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer {
+            background: rgba(3,4,94,0.95) !important;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Fullpage Video Background -->
+    <div class="fullpage-video-bg show" id="fullpageVideo">
+        <video autoplay muted loop playsinline>
+            <source src="../26818-361092071_small.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Diving Overlay Effects -->
+    <div class="diving-overlay">
+        <div class="depth-gradient"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar show">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="../shaheen-logo.jpg" alt="شاهين - Shaheen Logo">
+                </div>
+                <div class="logo-text">
+                    <h1>شركة استكشاف البحار</h1>
+                    <p>Marine Explore</p>
+                </div>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="about.html">من نحن</a></li>
+                <li><a href="services.html" class="active">الخدمات</a></li>
+                <li><a href="products.html">المنتجات</a></li>
+                <li><a href="sectors.html">القطاعات</a></li>
+                <li><a href="../index.html#contact">اتصل بنا</a></li>
+                <li class="language-switcher">
+                    <a href="#" id="languageToggle">
+                        <i class="fas fa-globe"></i>
+                        <span>English</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mobile-menu-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content">
+                <h1 class="page-title">الخدمات</h1>
+                <p class="page-subtitle">حلول شاملة لما تحت الماء</p>
+                <div class="breadcrumb">
+                    <a href="../index.html">الرئيسية</a>
+                    <span>/</span>
+                    <span>الخدمات</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <p style="color: rgba(255,255,255,0.95); max-width: 800px; margin: 0 auto; font-size: 1.15rem; line-height: 1.9;">
+                    نقدم محفظة خدمات متكاملة مصممة خصيصاً لتلبية احتياجات السوق السعودي والإقليمي
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-detail-card">
+                    <div class="service-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>خدمات المسح البحري</h3>
+                    <p>تنفيذ مسوحات بحرية دقيقة لقاع البحر باستخدام مركبات ذاتية الحركة تحت الماء، لجمع بيانات الأعماق، طبيعة القاع، والعوائق البحرية بكفاءة عالية.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-detail-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>خدمات الفحص تحت الماء (Underwater Inspection)</h3>
+                    <p>فحص خطوط الأنابيب، الأرصفة، والهياكل البحرية باستخدام تقنيات تصوير واستشعار متقدمة توفر تقارير دقيقة وسريعة.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-detail-card">
+                    <div class="service-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>الرصد والتدقيق البيئي</h3>
+                    <p>مراقبة جودة المياه والحياة البحرية لدعم مشاريع الاستدامة وحماية البيئة.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-detail-card">
+                    <div class="service-icon">
+                        <i class="fas fa-anchor"></i>
+                    </div>
+                    <h3>خدمات المسح للبنية التحتية البحرية (Marine Infrastructure Survey)</h3>
+                    <p>خدمات متخصصة للموانئ، الكابلات البحرية، والجسور الساحلية لتقييم الحالة تحت الماء.</p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-detail-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>تحليل البيانات والتقارير (Marine Data & Reporting)</h3>
+                    <p>تحويل البيانات الميدانية إلى تقارير استراتيجية تدعم متخذي القرار.</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="../index.html#contact" class="cta-btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2.5rem; font-size: 1.1rem; background: linear-gradient(135deg, #0077b6, #00b4d8); color: white; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 20px rgba(0,119,182,0.4); transition: all 0.3s ease;">
+                    <i class="fas fa-paper-plane"></i>
+                    اطلب تنفيذ مهمة بحرية الآن
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../shaheen-logo.jpg" alt="شاهين - Shaheen Logo">
+                    </div>
+                    <h3>شركة استكشاف البحار</h3>
+                    <p>حلول متقدمة للاستكشاف البحري باستخدام مركبات ذاتية الحركة تحت الماء</p>
+                </div>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-building"></i> عن الشركة</h4>
+                    <ul>
+                        <li><a href="about.html"><i class="fas fa-chevron-left"></i> من نحن</a></li>
+                        <li><a href="services.html"><i class="fas fa-chevron-left"></i> الخدمات</a></li>
+                        <li><a href="products.html"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
+                        <li><a href="sectors.html"><i class="fas fa-chevron-left"></i> القطاعات</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4><i class="fas fa-phone-alt"></i> تواصل معنا</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> البريد: info@marine-explore.sa</li>
+                        <li><i class="fas fa-map-marker-alt"></i> العنوان: الرياض – حي الرائد</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4><i class="fas fa-link"></i> روابط سريعة</h4>
+                    <ul>
+                        <li><a href="../index.html#contact"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-wave-decoration"></div>
+                <p>&copy; 2025 شركة استكشاف البحار - جميع الحقوق محفوظة | Marine Explore</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/script.js"></script>
+</body>
+</html>
